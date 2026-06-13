@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6d28d9">
+  <title>Russo Trainer</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div><p class="eyebrow">Русский тренажёр</p><h1>Russo Trainer</h1><p class="subtitle">Vocabolario, declinazioni e memoria a prova di marito.</p></div>
+  <button id="installBtn" class="secondary hidden">Installa app</button>
+</header>
+<nav class="tabs" aria-label="Sezioni principali">
+  <button class="tab active" data-view="home">Sessione</button>
+  <button class="tab" data-view="vocabulary">Vocabolario</button>
+  <button class="tab" data-view="add">Aggiungi</button>
+  <button class="tab" data-view="stats">Statistiche</button>
+</nav>
+<main>
+<section id="home" class="view active">
+  <div class="panel hero-panel">
+    <div><p class="eyebrow">Allenamento</p><h2>Prepara una sessione</h2><p>Le parole più fragili torneranno più spesso. Quelle solide verranno lasciate respirare.</p></div>
+    <div class="session-settings">
+      <label>Numero di domande<select id="sessionSize"><option>30</option><option>40</option><option>50</option></select></label>
+      <label>Direzione<select id="sessionDirection"><option value="mixed">Mista</option><option value="ru-it">Russo → italiano</option><option value="it-ru">Italiano → russo</option></select></label>
+      <label>Categoria<select id="sessionCategory"><option value="all">Tutte</option><option value="noun">Sostantivi</option><option value="verb">Verbi</option><option value="adjective">Aggettivi</option><option value="adverb">Avverbi</option><option value="pronoun">Pronomi</option><option value="preposition">Preposizioni</option></select></label>
+      <button id="startSession" class="primary">Inizia sessione</button>
+    </div>
+  </div>
+  <div id="emptyState" class="panel hidden"><h3>Il mazzo è ancora vuoto</h3><p>Aggiungi almeno una voce oppure carica gli esempi iniziali.</p><button id="loadSamples" class="primary">Carica esempi</button></div>
+  <div id="quizArea" class="panel quiz hidden">
+    <div class="quiz-topline"><span id="progressText"></span><span id="liveScore"></span></div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p id="questionMeta" class="pill"></p><h2 id="questionText" class="question"></h2><p id="questionHint" class="question-hint"></p>
+    <button id="revealAnswer" class="primary">Mostra risposta</button>
+    <div id="answerBox" class="answer-box hidden"><p class="answer-label">Risposta</p><h3 id="answerText"></h3><p id="answerPronunciation" class="pronunciation"></p><p id="answerNotes" class="notes"></p><div class="rating-grid"><button data-rating="wrong" class="danger">Errata</button><button data-rating="almost" class="warning">Quasi corretta</button><button data-rating="correct" class="success">Corretta</button></div></div>
+  </div>
+  <div id="sessionResult" class="panel hidden"></div>
+</section>
+<section id="vocabulary" class="view">
+  <div class="panel toolbar"><div><p class="eyebrow">Archivio</p><h2>Il tuo vocabolario</h2></div><div class="toolbar-actions"><input id="searchVocabulary" type="search" placeholder="Cerca russo o italiano"><button id="exportData" class="secondary">Esporta backup</button><label class="file-button secondary">Importa backup<input id="importData" type="file" accept="application/json"></label></div></div>
+  <div id="vocabularyList" class="card-grid"></div>
+</section>
+<section id="add" class="view">
+  <form id="entryForm" class="panel form-grid"><div class="form-heading"><p class="eyebrow">Nuova voce</p><h2>Aggiungi una parola o una forma</h2><p>Per questa prima versione ogni forma interrogabile è una scheda autonoma.</p></div>
+    <label>Categoria grammaticale<select id="partOfSpeech" required><option value="noun">Sostantivo</option><option value="verb">Verbo</option><option value="adjective">Aggettivo</option><option value="adverb">Avverbio</option><option value="pronoun">Pronome</option><option value="preposition">Preposizione</option></select></label>
+    <label>Russo in cirillico<input id="russian" required placeholder="молоко́"></label><label>Italiano<input id="italian" required placeholder="latte"></label><label>Pronuncia guidata<input id="pronunciation" required placeholder="malakò"></label><label>Forma o indicazione grammaticale<input id="grammarLabel" placeholder="genitivo singolare, passato femminile…"></label><label class="full-width">Note<textarea id="notes" rows="3"></textarea></label><button class="primary full-width" type="submit">Salva voce</button><p id="formMessage" class="form-message full-width" role="status"></p>
+  </form>
+</section>
+<section id="stats" class="view"><div class="panel"><p class="eyebrow">Andamento</p><h2>Statistiche</h2><div id="statsSummary" class="stats-grid"></div></div><div class="panel"><h3>Parole da rinforzare</h3><div id="weakWords"></div></div></section>
+</main>
+<footer><span>Russo Trainer v0.1</span><span>I dati restano su questo dispositivo.</span></footer>
+<script src="app.js"></script>
+</body>
+</html>
